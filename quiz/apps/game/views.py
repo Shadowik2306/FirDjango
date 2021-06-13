@@ -129,10 +129,11 @@ def finish_act(request, name):
         dct = eval(real_user.choice)
         right_ans = 0
         for i in range(1, 6):
-            if set(dct['question'][i]) - set(Question.objects.get(id = i).right_answer) == set():
+            if set(dct['question'][i]) == set(Question.objects.get(id = i).right_answer):
                 right_ans += 1
-            else:
                 print(set(dct['question'][i]), set(Question.objects.get(id = i).right_answer))
+            else:
+                pass
         real_user.finish = int(right_ans / 5 * 100)
         real_user.save()
     params = {
