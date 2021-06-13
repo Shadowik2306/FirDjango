@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Вопрос номер {{ real_question.id }}{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Вопрос номер {{ real_question.id }}</h1>
+<div>
+	<h1>{{real_question.question_text}}</h1>
+	<hr>
+	<div style="position: relative; margin: 10%;">
+		<form action="{% url 'game:choose_question' real_user.nickname real_question.id %}" method="POST">
+			{% csrf_token %}
+			{% if real_question.radio %}
+				<div>
+					<div>
+						<input class="form-check-input" type="radio" name="A" value="A" id="A" {% if 'A' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="A">
+							A: {{ real_question.answer_a}}
+						</label>
+					</div>
+					<div>
+						<input class="form-check-input" type="radio" name="A" value="B" id="B" {% if 'B' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="B">
+							B: {{ real_question.answer_b}}
+						</label>
+					</div>
+					<div>
+						<input class="form-check-input" type="radio" name="A" value="C" id="C" {% if 'C' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="C">
+							C: {{ real_question.answer_c}}
+						</label>
+					</div>
+					<div>
+						<input class="form-check-input" type="radio" name="A" value="D" id="D" {% if 'D' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="D">
+							D: {{ real_question.answer_d}}
+						</label>
+					</div>
+				</div>
+			{% else %}
+				<div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="A" id="A" name="A" {% if 'A' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="A">
+					    	A: {{ real_question.answer_a}}
+					  	</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="B" id="B" name="A" {% if 'B' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="B">
+					    	B: {{ real_question.answer_b}}
+					  	</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="C" id="C" name="A" {% if 'C' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="C">
+					    	C: {{ real_question.answer_c}}
+					  	</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="D" id="D" name="A" {% if 'D' in chosen %} checked {% endif %}>
+						<label class="form-check-label" for="D">
+					    	D: {{ real_question.answer_d}}
+					  	</label>
+					</div>
+				</div>
+			{% endif %}
+			<br>
+			<div>
+				<button class="btn btn-outline-secondary" type="submit" id="next" name='next' style="background: black">Следующий вопрос</button>
+				{% if real_question.id != 1 %}
+					<button class="btn btn-outline-secondary" type="submit" id="return" name='return' style="background: black">Предыдущий вопрос</button>
+				{% endif %}
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+{% endblock %}

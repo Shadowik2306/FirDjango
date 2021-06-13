@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1 class="text-center">Насколько ты прогер?</h1>
+	<form method="POST" action="{% url 'game:start' %}">
+		{% csrf_token %}
+		<div class="input-group mb-3">
+			<button class="btn btn-outline-secondary" type="submit" id="button-addon1", style="background: black">Начать тестирование</button>
+			<input type="text" class="form-control" placeholder="Введите имя" aria-label="Example text with button addon" aria-describedby="button-addon1", name="nickname", value="{% if new_user %}{{ new_user }}{% endif %}">
+		</div>
+	</form>
+	<h4 class="text-center text-danger">
+	{% if new_user %}
+		<a value='reset' href="{% url 'game:reset'%}">{{ error_message }}</a>
+	{% else %}
+		{{ error_message }}
+	{% endif %}
+	</h4>
+{% endblock %}
